@@ -10,7 +10,7 @@ Tyler start the backbone of the EDA file right here. The first chunk will be loa
 # Read in Clean Data
 
 ```{r}
-
+#nfl <- readRDS("~/MATH456/nfl.rds")
 ```
 
 # Univariate Analysis

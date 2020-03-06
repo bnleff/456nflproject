@@ -32,4 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Create a Clean Dataset (Everyone)
 
+```{r}
+#saveRDS(nfl, file="~/MATH456/nfl.rds")
+```
 
