@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Section to Load in Data
 
 ```{r}
-nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
+#nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
+#nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
 ```
 
