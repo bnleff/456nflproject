@@ -1,0 +1,21 @@
+---
+title: "eda.Rmd"
+author: "Brandon Leff"
+date: "3/6/2020"
+output: html_document
+---
+
+Tyler start the backbone of the EDA file right here. The first chunk will be loading in the clean data we get at the end of the Data Management file. Since we don't have all DM done yet start with some univariate plots of variables and as DM continues the plots can just change with it.
+
+# Read in Clean Data
+
+```{r}
+
+```
+
+# Univariate Analysis
+
+```{r}
+
+```
+

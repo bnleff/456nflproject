@@ -17,3 +17,19 @@ knitr::opts_chunk$set(echo = TRUE)
 #nfl <- read.csv("/home/taudin/MiscFiles/Spring20/MATH456/NFLData/nflplaybyplay.csv")
 ```
 
+
+# Data Management Tasks
+
+## Codebook (Jenny)
+
+## Rename Variable Names (Brandon)
+
+## Research Questions (Brandon)
+
+## Decide Which Variables are Important (Brandon)
+
+## Missing Values (Kris)
+
+## Create a Clean Dataset (Everyone)
+
+
