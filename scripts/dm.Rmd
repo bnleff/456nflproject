@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Section to Load in Data
 
 ```{r}
-nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
+#nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
 #nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
 #nfl <- read.csv("/home/taudin/MiscFiles/Spring20/MATH456/NFLData/nflplaybyplay.csv")
 ```
@@ -31,7 +31,8 @@ nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
 ## Missing Values (Kris)
 
 ## Create a Clean Dataset (Everyone)
+
 ```{r}
-saveRDS(nfl, file="~/MATH456/nfl.rds")
+#saveRDS(nfl, file="~/MATH456/nfl.rds")
 ```
 
