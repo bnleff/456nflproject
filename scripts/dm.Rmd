@@ -13,8 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 #nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
-#nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
+nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
 #nfl <- read.csv("/home/taudin/MiscFiles/Spring20/MATH456/NFLData/nflplaybyplay.csv")
+```
+
+```{r}
+library(dplyr)
 ```
 
 
@@ -22,17 +26,65 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Codebook (Jenny)
 
-## Rename Variable Names (Brandon)
-
 ## Research Questions (Brandon)
+
+Can we predict the outcome of games given both teams in the game?
 
 ## Decide Which Variables are Important (Brandon)
 
+### Initial Manual Variable Selection
+
+These variables are all the variables that I would initially think would affect the game outcome.
+
+```{r}
+nfl2 <- nfl %>% select(Drive, qtr, down, yrdln, ydstogo, FirstDown, posteam, DefensiveTeam, Yards.Gained, Touchdown, sp, ExPointResult, TwoPointConv, DefTwoPoint, Safety, PlayType, PassAttempt, PassOutcome, PassLength, YardsAfterCatch, InterceptionThrown, RushAttempt, RunLocation, RunGap, FieldGoalResult, FieldGoalDistance, Fumble, RecFumbTeam, Sack, PenalizedTeam, Penalty.Yards, PosTeamScore, DefTeamScore, ScoreDiff, HomeTeam, AwayTeam, No_Score_Prob, Opp_Field_Goal_Prob, Opp_Safety_Prob, Opp_Touchdown_Prob, Field_Goal_Prob, Safety_Prob, Touchdown_Prob, ExPoint_Prob, TwoPoint_Prob)
+```
+
+
+### Fixing Small Problems with Variables
+
+```{r}
+nfl2$qtr <- factor(nfl2$qtr, labels = c("1st", "2nd", "3rd", "4th", "OT"))
+nfl2$down <- factor(nfl2$down, labels = c("1st", "2nd", "3rd", "4th"))
+```
+
+```{r}
+table(nfl2$HomeTeam, useNA = "always")
+```
+
+
+
 ## Missing Values (Kris)
+
+Kris These Variables Need To Be Looked At For Missing Data
+
+FirstDown
+posteam
+DefensiveTeam
+Yards.Gained (Crazy Values)
+ExPointResult
+TwoPointConv
+DefTwoPoint (What does this mean difference between failure and NA)
+PassOutcome
+PassLength (one is integer 20 we need to decide if this is short or deep)
+YardsAfterCatch (Crazy Values)
+RunLocation
+RunGap
+FieldGoalResult
+FieldGoalDistance
+RecFumTeam
+PenalizedTeam
+PosTeamScore (why are there NA when it could be 0, double check with jennys codebook)
+DefTeamScore (same thing as above)
+ScoreDiff (same thing as above)
+
+ANYTHING INVOLVING TEAM WE NEED TO LOOK INTO LA IF THIS IS RAMS OR CHARGERS. (STL Most Likely)
+
+
 
 ## Create a Clean Dataset (Everyone)
 
 ```{r}
-#saveRDS(nfl, file="~/MATH456/nfl.rds")
+#saveRDS(nfl2, file="~/MATH456/nfl.rds")
 ```
 
