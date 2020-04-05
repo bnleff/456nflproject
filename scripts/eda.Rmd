@@ -2,7 +2,9 @@
 title: "eda.Rmd"
 author: "Brandon Leff"
 date: "3/6/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 Tyler start the backbone of the EDA file right here. The first chunk will be loading in the clean data we get at the end of the Data Management file. Since we don't have all DM done yet start with some univariate plots of variables and as DM continues the plots can just change with it.
@@ -10,12 +12,49 @@ Tyler start the backbone of the EDA file right here. The first chunk will be loa
 # Read in Clean Data
 
 ```{r}
-#nfl <- readRDS("~/MATH456/nfl.rds")
+nfl <- readRDS("~/MATH456/nfl.rds")
 ```
+
+```{r}
+library(ggplot2)
+library(pander)
+```
+
 
 # Univariate Analysis
 
+#FirstDown
 ```{r}
+nfl$firstdown <- factor(nfl$FirstDown, labels = c("No First Down", "First Down"))
 
+pander(summary(nfl$firstdown))
+
+fd.props <- data.frame(prop.table(table(nfl$firstdown)))
+
+ggplot(fd.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Play Result") + 
+  ggtitle("Proportion of Plays Resulting in a First Down")
+```
+
+#posteam
+```{r}
+pander(summary(nfl$posteam))
+
+pos.props <- data.frame(prop.table(table(nfl$posteam)))
+
+ggplot(pos.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Team") + 
+  ggtitle("Proportion of Total Offensive Plays by Team")
+```
+
+#DefensiveTeam
+```{r}
+pander(summary(nfl$DefensiveTeam))
+
+defteam.props <- data.frame(prop.table(table(nfl$DefensiveTeam)))
+
+ggplot(pos.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Team") + 
+  ggtitle("Proportion of Total Defensive Plays by Team")
 ```
 
