@@ -34,6 +34,7 @@ fd.props <- data.frame(prop.table(table(nfl$firstdown)))
 ggplot(fd.props, aes(x=Var1, y=Freq)) + geom_col() + 
   ylab("Proportion") + xlab("Play Result") + 
   ggtitle("Proportion of Plays Resulting in a First Down")
+
 ```
 
 #posteam
@@ -45,6 +46,7 @@ pos.props <- data.frame(prop.table(table(nfl$posteam)))
 ggplot(pos.props, aes(x=Var1, y=Freq)) + geom_col() + 
   ylab("Proportion") + xlab("Team") + 
   ggtitle("Proportion of Total Offensive Plays by Team")
+
 ```
 
 #DefensiveTeam
@@ -53,8 +55,161 @@ pander(summary(nfl$DefensiveTeam))
 
 defteam.props <- data.frame(prop.table(table(nfl$DefensiveTeam)))
 
-ggplot(pos.props, aes(x=Var1, y=Freq)) + geom_col() + 
+ggplot(defteam.props, aes(x=Var1, y=Freq)) + geom_col() + 
   ylab("Proportion") + xlab("Team") + 
   ggtitle("Proportion of Total Defensive Plays by Team")
+
+```
+
+#Yards.Gained
+```{r}
+pander(summary(nfl$Yards.Gained))
+
+table(cut(nfl$Yards.Gained, 17))
+
+```
+
+#ExPointResult
+```{r}
+pander(summary(nfl$ExPointResult))
+
+```
+
+#TwoPointConv
+```{r}
+pander(summary(nfl$TwoPointConv))
+
+twopointconv.props <- data.frame(prop.table(table(nfl$TwoPointConv)))
+
+ggplot(twopointconv.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Two Point Conversion Outcomes")
+```
+
+#DefTwoPoint
+```{r}
+pander(summary(nfl$DefTwoPoint))
+
+```
+
+#PassOutcome
+```{r}
+pander(summary(nfl$PassOutcome))
+
+passoutcome.props <- data.frame(prop.table(table(nfl$PassOutcome)))
+
+ggplot(passoutcome.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Pass Plays Outcomes")
+```
+
+#PassLength
+```{r}
+pander(summary(nfl$PassLength))
+
+passlength.props <- data.frame(prop.table(table(nfl$PassLength)))
+
+ggplot(passlength.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Pass Length") + 
+  ggtitle("Proportion of Pass Lengths")
+```
+
+#YardsAfterCatch
+```{r}
+pander(summary(nfl$YardsAfterCatch))
+
+table(cut(nfl$YardsAfterCatch, 17))
+
+```
+
+#RunLocation
+```{r}
+pander(summary(nfl$RunLocation))
+
+runlocation.props <- data.frame(prop.table(table(nfl$RunLocation)))
+
+ggplot(runlocation.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Run Location") + 
+  ggtitle("Proportion of Run Locations")
+```
+
+#RunGap
+```{r}
+pander(summary(nfl$RunGap))
+
+rungap.props <- data.frame(prop.table(table(nfl$RunGap)))
+
+ggplot(rungap.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Gap") + 
+  ggtitle("Proportion of Runs by Gap")
+
+```
+
+#FieldGoalResult
+```{r}
+pander(summary(nfl$FieldGoalResult))
+
+fgresult.props <- data.frame(prop.table(table(nfl$FieldGoalResult)))
+
+ggplot(fgresult.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("FG Result") + 
+  ggtitle("Proportion of Field Goals by Result")
+
+```
+
+#FieldGoalDistance
+```{r}
+pander(summary(nfl$FieldGoalDistance))
+
+table(cut(nfl$FieldGoalDistance, 11))
+
+```
+
+#RecFumbTeam
+```{r}
+pander(summary(nfl$RecFumbTeam))
+
+recfumbteam.props <- data.frame(prop.table(table(nfl$RecFumbTeam)))
+
+ggplot(recfumbteam.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Team") + 
+  ggtitle("Proportion of Fumble Recoveries by Team")
+
+```
+
+#PenalizedTeam
+```{r}
+pander(summary(nfl$PenalizedTeam))
+
+penteam.props <- data.frame(prop.table(table(nfl$PenalizedTeam)))
+
+ggplot(penteam.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Team") + 
+  ggtitle("Proportion of Penalties by Team")
+
+```
+
+#PosTeamScore
+```{r}
+pander(summary(nfl$PosTeamScore))
+
+table(cut(nfl$PosTeamScore, 8))
+
+```
+
+#DefTeamScore
+```{r}
+pander(summary(nfl$DefTeamScore))
+
+table(cut(nfl$DefTeamScore, 8))
+
+```
+
+#ScoreDiff
+```{r}
+pander(summary(nfl$ScoreDiff))
+
+table(cut(nfl$ScoreDiff, 16))
+
 ```
 
