@@ -100,7 +100,7 @@ passoutcome.props <- data.frame(prop.table(table(nfl$PassOutcome)))
 
 ggplot(passoutcome.props, aes(x=Var1, y=Freq)) + geom_col() + 
   ylab("Proportion") + xlab("Outcome") + 
-  ggtitle("Proportion of Pass Plays Outcomes")
+  ggtitle("Proportion of Pass Plays by Outcome")
 ```
 
 #PassLength
@@ -210,6 +210,266 @@ table(cut(nfl$DefTeamScore, 8))
 pander(summary(nfl$ScoreDiff))
 
 table(cut(nfl$ScoreDiff, 16))
+
+```
+
+#Drive
+```{r}
+pander(summary(nfl$Drive))
+
+drive.props <- data.frame(prop.table(table(nfl$Drive)))
+
+ggplot(drive.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Drive #") + 
+  ggtitle("Proportion of Plays by Drive #")
+
+```
+
+#qtr
+```{r}
+pander(summary(nfl$qtr))
+
+qtr.props <- data.frame(prop.table(table(nfl$qtr)))
+
+ggplot(qtr.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Quarter") + 
+  ggtitle("Proportion of Plays by Quarter")
+
+```
+
+#down
+```{r}
+pander(summary(nfl$down))
+
+down.props <- data.frame(prop.table(table(nfl$down)))
+
+ggplot(down.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Down") + 
+  ggtitle("Proportion of Plays by Down")
+
+```
+
+#yrdln
+```{r}
+pander(summary(nfl$yrdln))
+
+table(cut(nfl$yrdln, 5))
+
+```
+
+#ydstogo
+```{r}
+pander(summary(nfl$ydstogo))
+
+table(cut(nfl$ydstogo, 10))
+
+ydstogo.props <- data.frame(prop.table(table(nfl$ydstogo)))
+
+ggplot(ydstogo.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Yards To Go") + 
+  ggtitle("Proportion of Plays by YTG")
+
+```
+
+#Touchdown
+```{r}
+nfl$touchdown <- factor(nfl$Touchdown, labels = c("No TD", "TD"))
+
+pander(summary(nfl$touchdown))
+
+touchdown.props <- data.frame(prop.table(table(nfl$touchdown)))
+
+ggplot(touchdown.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays Ending in a Touchdown")
+
+```
+
+#sp
+```{r}
+pander(table(nfl$sp))
+
+```
+
+#Safety
+```{r}
+nfl$safety <- factor(nfl$Safety, labels = c("No Safety", "Safety"))
+
+pander(summary(nfl$safety))
+
+safety.props <- data.frame(prop.table(table(nfl$safety)))
+
+ggplot(safety.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays Ending in a Safety")
+
+```
+
+#PlayType
+```{r}
+pander(summary(nfl$PlayType))
+
+playtype.props <- data.frame(prop.table(table(nfl$PlayType)))
+
+ggplot(playtype.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Play Type") + 
+  ggtitle("Proportion of Plays by Play Type")
+
+```
+
+#PassAttempt
+```{r}
+nfl$passattempt <- factor(nfl$PassAttempt, labels = c("No Pass Attempted", "Pass Attempted"))
+
+pander(summary(nfl$passattempt))
+
+passattempt.props <- data.frame(prop.table(table(nfl$passattempt)))
+
+ggplot(passattempt.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays by Pass Attempt Status")
+
+```
+
+#InterceptionThrown
+```{r}
+nfl$interceptionthrown <- factor(nfl$InterceptionThrown, labels = c("No Interception", "Interception"))
+
+pander(summary(nfl$interceptionthrown))
+
+interceptionthrown.props <- data.frame(prop.table(table(nfl$interceptionthrown)))
+
+ggplot(interceptionthrown.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays by Interception Status")
+
+```
+
+#RushAttempt
+```{r}
+nfl$rushattempt <- factor(nfl$RushAttempt, labels = c("No Rush Attempt", "Rush Attempt"))
+
+pander(summary(nfl$rushattempt))
+
+rushattempt.props <- data.frame(prop.table(table(nfl$rushattempt)))
+
+ggplot(rushattempt.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays by Rush Attempt Status")
+
+```
+
+#Fumble
+```{r}
+nfl$fumble <- factor(nfl$Fumble, labels = c("No Fumble", "Fumble"))
+
+pander(summary(nfl$fumble))
+
+fumble.props <- data.frame(prop.table(table(nfl$fumble)))
+
+ggplot(fumble.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays by Fumble Status")
+
+```
+
+#Sack
+```{r}
+nfl$sack <- factor(nfl$Sack, labels = c("No Sack", "Sack"))
+
+pander(summary(nfl$sack))
+
+sack.props <- data.frame(prop.table(table(nfl$sack)))
+
+ggplot(sack.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Outcome") + 
+  ggtitle("Proportion of Plays by Sack Status")
+
+```
+
+#Penalty.Yards
+```{r}
+pander(table(nfl$Penalty.Yards))
+
+pander(summary(nfl$Penalty.Yards))
+
+table(cut(nfl$Penalty.Yards, 13))
+
+```
+
+#HomeTeam
+```{r}
+pander(summary(nfl$HomeTeam))
+
+hometeam.props <- data.frame(prop.table(table(nfl$HomeTeam)))
+
+ggplot(hometeam.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Team") + 
+  ggtitle("Proportion of Total Plays by Home Team")
+
+```
+
+#AwayTeam
+```{r}
+pander(summary(nfl$AwayTeam))
+
+awayteam.props <- data.frame(prop.table(table(nfl$AwayTeam)))
+
+ggplot(awayteam.props, aes(x=Var1, y=Freq)) + geom_col() + 
+  ylab("Proportion") + xlab("Team") + 
+  ggtitle("Proportion of Total Plays by Away Team")
+
+```
+
+#No_Score_Prob
+```{r}
+pander(summary(nfl$No_Score_Prob))
+
+```
+
+#Opp_Field_Goal_Prob
+```{r}
+pander(summary(nfl$Opp_Field_Goal_Prob))
+
+```
+
+#Opp_Safety_Prob
+```{r}
+pander(summary(nfl$Opp_Safety_Prob))
+```
+
+#Opp_Touchdown_Prob
+```{r}
+pander(summary(nfl$Opp_Touchdown_Prob))
+
+```
+
+#Field_Goal_Prob
+```{r}
+pander(summary(nfl$Field_Goal_Prob))
+
+```
+
+#Safety_Prob
+```{r}
+pander(summary(nfl$Safety_Prob))
+
+```
+
+#Touchdown_Prob
+```{r}
+pander(summary(nfl$Touchdown_Prob))
+```
+
+#ExPoint_Prob
+```{r}
+pander(summary(nfl$ExPoint_Prob))
+
+```
+
+#TwoPoint_Prob
+```{r}
+pander(summary(nfl$TwoPoint_Prob))
 
 ```
 
