@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 #nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
-#nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
+nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
 #nfl <- read.csv("/home/taudin/MiscFiles/Spring20/MATH456/NFLData/nflplaybyplay.csv")
 ```
 
@@ -21,65 +21,66 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 ```
 
-
-# Data Management Tasks
-
-## Codebook (Jenny)
-
-## Research Questions (Brandon)
-
-Can we predict the outcome of games given both teams in the game?
-
-## Decide Which Variables are Important (Brandon)
-
-### Initial Manual Variable Selection
-
-These variables are all the variables that I would initially think would affect the game outcome.
-
-```{r}
-nfl2 <- nfl %>% select(Drive, qtr, down, yrdln, ydstogo, FirstDown, posteam, DefensiveTeam, Yards.Gained, Touchdown, sp, ExPointResult, TwoPointConv, DefTwoPoint, Safety, PlayType, PassAttempt, PassOutcome, PassLength, YardsAfterCatch, InterceptionThrown, RushAttempt, RunLocation, RunGap, FieldGoalResult, FieldGoalDistance, Fumble, RecFumbTeam, Sack, PenalizedTeam, Penalty.Yards, PosTeamScore, DefTeamScore, ScoreDiff, HomeTeam, AwayTeam, No_Score_Prob, Opp_Field_Goal_Prob, Opp_Safety_Prob, Opp_Touchdown_Prob, Field_Goal_Prob, Safety_Prob, Touchdown_Prob, ExPoint_Prob, TwoPoint_Prob)
+```{r var-names-lower}
+names(nfl) <- tolower(names(nfl))
 ```
 
+```{r manual-var-select}
+play_predict <- nfl %>% select(date,gameid,drive,qtr,down,timesecs,sideoffield,yrdln,ydstogo,firstdown,posteam,defensiveteam,playattempted,yards.gained,touchdown,playtype,passattempt,passoutcome,passlength,airyards,yardsaftercatch,qbhit,passlocation,interceptionthrown,rushattempt,runlocation,rungap,fumble,sack,challenge.replay,chalreplayresult,penalizedteam,penalty.yards,posteamscore,defteamscore,hometeam,awayteam,scorediff,no_score_prob,touchdown_prob)
+```
 
-### Fixing Small Problems with Variables
+# Adding Day of the week Variable
 
-```{r}
-nfl2$qtr <- factor(nfl2$qtr, labels = c("1st", "2nd", "3rd", "4th", "OT"))
-nfl2$down <- factor(nfl2$down, labels = c("1st", "2nd", "3rd", "4th"))
+```{r day-of-week}
+play_predict$day <- weekdays(as.Date(play_predict$date))
+```
+
+# Changing team labels for rams and jaguars
+
+```{r as-character}
+play_predict$posteam <- as.character(play_predict$posteam)
+play_predict$defensiveteam <- as.character(play_predict$defensiveteam)
+play_predict$penalizedteam <- as.character(play_predict$penalizedteam)
+play_predict$hometeam <- as.character(play_predict$hometeam)
+play_predict$awayteam <- as.character(play_predict$awayteam)
+```
+
+```{r jaguars-rams}
+play_predict$posteam[play_predict$posteam == "STL"] <- "LA"
+play_predict$posteam[play_predict$posteam == "JAC"] <- "JAX"
+play_predict$defensiveteam[play_predict$defensiveteam == "STL"] <- "LA"
+play_predict$defensiveteam[play_predict$defensiveteam == "JAC"] <- "JAX"
+play_predict$penalizedteam[play_predict$penalizedteam == "STL"] <- "LA"
+play_predict$penalizedteam[play_predict$penalizedteam == "JAC"] <- "JAX"
+play_predict$hometeam[play_predict$hometeam == "STL"] <- "LA"
+play_predict$hometeam[play_predict$hometeam == "JAC"] <- "JAX"
+play_predict$awayteam[play_predict$awayteam == "STL"] <- "LA"
+play_predict$awayteam[play_predict$awayteam == "JAC"] <- "JAX"
 ```
 
 ```{r}
-table(nfl2$HomeTeam, useNA = "always")
+table(play_predict$hometeam)
 ```
 
+# Make the dataset plays where only a pass, run, sack, spike, punt happened
 
+```{r only-pass-run-sack-spike-punt}
+dope_plays <- c("Pass", "Run", "Sack", "Spike", "Punt")
+play_predict <- play_predict %>% filter(playtype %in% dope_plays)
+play_predict$playtype <- droplevels(play_predict$playtype)
+```
 
-## Missing Values (Kris)
+```{r drop-levels-50-yard-line}
+play_predict$sideoffield <- droplevels(play_predict$sideoffield)
+```
 
-Kris These Variables Need To Be Looked At For Missing Data
+```{r drop-play-attempted-var}
+play_predict <- play_predict %>% select(-c(playattempted))
+```
 
-FirstDown
-posteam
-DefensiveTeam
-Yards.Gained (Crazy Values)
-ExPointResult
-TwoPointConv
-DefTwoPoint (What does this mean difference between failure and NA)
-PassOutcome
-PassLength (one is integer 20 we need to decide if this is short or deep)
-YardsAfterCatch (Crazy Values)
-RunLocation
-RunGap
-FieldGoalResult
-FieldGoalDistance
-RecFumTeam
-PenalizedTeam
-PosTeamScore (why are there NA when it could be 0, double check with jennys codebook)
-DefTeamScore (same thing as above)
-ScoreDiff (same thing as above)
-
-ANYTHING INVOLVING TEAM WE NEED TO LOOK INTO LA IF THIS IS RAMS OR CHARGERS. (STL Most Likely)
-
+```{r drop-play-pass-20}
+table(play_predict$penalizedteam)
+```
 
 
 ## Create a Clean Dataset (Everyone)
