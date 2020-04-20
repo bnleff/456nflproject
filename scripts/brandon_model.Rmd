@@ -14,12 +14,16 @@ library(ROCR)
 ```
 
 ```{r read-in-data}
-nfl <- readRDS("../data/nfl.rds")
+nfl <- readRDS("../data/nfl_clean_4_17.rds")
 ```
 
 ```{r filter-plays}
 nfl <- nfl %>% filter(playtype %in% c("Pass", "Punt", "Run"))
 nfl$playtype <- droplevels(nfl$playtype)
+```
+
+```{r}
+nfl <- nfl %>% relocate(playtype)
 ```
 
 # LASSO 
