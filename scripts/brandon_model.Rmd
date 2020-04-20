@@ -1,0 +1,33 @@
+---
+title: "brandon_model"
+author: "Brandon Leff"
+date: "4/20/2020"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(pander)
+library(bestglm)
+library(glmnet)
+library(ROCR)
+```
+
+```{r read-in-data}
+nfl <- readRDS("../data/nfl.rds")
+```
+
+```{r filter-plays}
+nfl <- nfl %>% filter(playtype %in% c("Pass", "Punt", "Run"))
+nfl$playtype <- droplevels(nfl$playtype)
+```
+
+# LASSO 
+
+```{r}
+y <- nfl$playtype
+x <- model.matrix(playtype ~ ., data = nfl)[,-1]
+set.seed(712)
+cv_nfl <- cv.glmnet(x, y, family="multinomial", type.multinomial = "grouped", parallel = TRUE)
+```
+
