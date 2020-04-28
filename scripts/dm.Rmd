@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #nfl <- read.csv("~/MATH456/nflplaybyplay.csv")
 #nfl <- read.csv("/Users/brandonleff/Desktop/math456/nflplaybyplay.csv")
-nfl <- read.csv("/home/taudin/MiscFiles/Spring20/MATH456/NFLData/nflplaybyplay.csv")
+#nfl <- read.csv("/home/taudin/MiscFiles/Spring20/MATH456/NFLData/nflplaybyplay.csv")
 ```
 
 ```{r}
@@ -87,5 +87,6 @@ table(play_predict$penalizedteam)
 
 ```{r}
 #saveRDS(nfl2, file="~/MATH456/nfl.rds")
+#saveRDS(object = play_predict, file = "/home/taudin/MiscFiles/Spring20/MATH456/NFLProject/data/nfl.rds")
 ```
 
