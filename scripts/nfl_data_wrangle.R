@@ -61,6 +61,12 @@ version1_nfl_data$preplay_timeouts_remaining_hometeam <- as_factor(version1_nfl_
 version1_nfl_data$preplay_timeouts_remaining_awayteam <- as_factor(version1_nfl_data$preplay_timeouts_remaining_awayteam)
 version1_nfl_data$play_call <- as_factor(version1_nfl_data$play_call)
 
+version1_nfl_data <- version1_nfl_data %>% 
+  mutate(yards_to_go = if_else(version1_nfl_data$yards_to_go <= 6, "short",
+                               if_else(version1_nfl_data$yards_to_go > 6 & version1_nfl_data$yards_to_go <= 9, "medium", "long")))
+
+version1_nfl_data$yards_to_go <- factor(version1_nfl_data$yards_to_go, ordered = TRUE, levels = c("short", "medium", "long"))
+
 #saveRDS(version1_nfl_data, "/home/taudin/MiscFiles/Spring20/MATH456/NFLProject/data/version_1.rds")
 
 

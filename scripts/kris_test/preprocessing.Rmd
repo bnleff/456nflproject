@@ -1,0 +1,116 @@
+---
+title: "preprocessing"
+author: "Kris Walker"
+date: "4/28/2020"
+output: html_document
+---
+
+
+# NFL Play Prediction Project - Part 1: Preprocessing the Data
+
+## 1 Introduction
+
+(Describe the data)
+
+First we load the packages that we'll use:
+```{r message=FALSE}
+library(nflscrapR)
+library(tidyverse)
+library(caret)
+library(ggplot2)
+library(plyr)
+library(gridExtra)
+library(gmodels)
+library(grid)
+library(vcd)
+library(scales)
+library(ggthemes)
+library(knitr)
+```
+
+## 2 Reading the Data
+
+```{r}
+nfl_data <- readRDS("/home/taudin/MiscFiles/Spring20/MATH456/NFLProject/data/version_1.rds")
+```
+
+## 3 Overview of the Data
+
+The number of observations and variables in the `nfl_data` data frame is:
+```{r}
+dim(nfl_data)
+```
+
+Let's take a look at the data frame:
+```{r}
+head(nfl_data, 10)
+```
+
+and its structure:
+```{r}
+str(nfl_data, vec.len = 2, strict.width = "no", width = 30)
+```
+
+We have a mixture of different data types ranging from Datetimes, to integers, numbers, factors, and characters. In order to see what the levels of each factor variable are, here's a function `levels_factors()`.
+```{r}
+levels_factors <- function(my_data) {
+    col_names <- names(my_data)
+    for (i in 1:length(col_names)) {
+        if (is.factor(my_data[, col_names[i]])) {
+            message(noquote(paste("Covariate ", "*", col_names[i], "*", " with factor levels:", 
+                                  sep = "")))
+            print(levels(my_data[, col_names[i]]))
+        }
+    }
+}
+
+(levels_factors(nfl_data))
+```
+
+
+```{r}
+row.names(nfl_data) <- 1:nrow(nfl_data)
+```
+
+
+
+## 5 Transformations on the Data
+
+### 
+
+
+```{r}
+table(nfl_data$qtr)
+```
+
+
+
+```{r}
+ggplot(aes(x = factor(0), y = yards_to_go),
+        data = subset(nfl_data, nfl_data$yards_to_go > 0)) + 
+    geom_boxplot() +
+    stat_summary(fun.y = mean, 
+                 geom = 'point', 
+                 shape = 19,
+                 color = "red",
+                 cex = 2) +
+    scale_x_discrete(breaks = NULL) +
+    scale_y_continuous(breaks = seq(0, 50, 5)) +
+    ylab("Yards to Go") +
+    xlab("") +  
+    ggtitle("Box plot of Yards to Go") 
+```
+
+The bulk of the yards to go are between 5 and 10 yards and there are many outliers. Next we show a histogram of the nonzero capital gain:
+```{r}
+data <- nfl_data[nfl_data$yards_to_go > 0,]
+
+ggplot(data = data, aes(x = data$yards_to_go)) +
+  geom_histogram(binwidth = 2, color = "black",
+                 fill = "lightblue",
+                 alpha = 0.4) +
+  scale_y_continuous(breaks = seq(0, 50, 5)) +
+  labs(x = "Yards to Go", y = "Count") +
+  ggtitle("Histogram of Yards to Go")
+```
+
